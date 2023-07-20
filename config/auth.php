@@ -112,4 +112,5 @@ return [
 
     'password_timeout' => 10800,
 
+    'api_url'=> env('AUTH_API', 'http://localhost'),
 ];

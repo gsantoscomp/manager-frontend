@@ -27,3 +27,9 @@
 
     @include('template.components.logout-modal')
 @endsection
+
+@section('scripts')
+    <script>
+        const accessToken = '{{ session('accessToken') }}';
+    </script>
+@endsection

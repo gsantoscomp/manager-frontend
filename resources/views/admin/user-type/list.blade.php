@@ -32,6 +32,8 @@
 @endsection
 
 @section('scripts')
+    @parent
+
     <script src="template/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="template/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     
@@ -39,7 +41,6 @@
         $(document).ready(function() {
             getUserTypes();
         });
-
 
         function getUserTypes() {
             const userTypeTableBody = $('#user-types-table tbody');
@@ -49,7 +50,7 @@
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
-                    "Authorization": "Bearer " + apiManagerToken 
+                    "Authorization": "Bearer " + accessToken 
                 },
                 success: function(result) {
                     const tableContent = result.reduce(function (finalString, item) {

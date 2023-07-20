@@ -22,7 +22,8 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">HORSYSTEM</h1>
                                 </div>
-                                <form class="user">
+                                <form class="user" action="{{ route('admin.authenticate') }}" method="POST">
+                                    @csrf
                                     <div class="form-group">
                                         <input type="email" name="email" class="form-control form-control-user"
                                             id="exampleInputEmail" aria-describedby="emailHelp"
@@ -32,7 +33,7 @@
                                         <input type="password" name="password" class="form-control form-control-user"
                                             id="exampleInputPassword" placeholder="Senha" value="123456" required>
                                     </div>
-                                    <button id="login-button" class="btn btn-primary btn-user btn-block">
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">
                                         Entrar
                                     </button>
                                 </form>
