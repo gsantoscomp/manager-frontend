@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('admin.authenticat
 Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
 Route::get('/', function () {return view('admin.index');})->name('admin.dashboard');
-Route::get('/userType', function () {return view('admin.user-type.list');})->name('admin.userType.index');
+
+Route::prefix('userType')->group(function () {
+    Route::get('/', [UserTypeController::class, 'index'])->name('admin.userType.index');
+});
