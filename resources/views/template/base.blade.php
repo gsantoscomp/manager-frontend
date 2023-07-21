@@ -18,6 +18,7 @@
     <!-- Custom styles for this template-->
     <link href="template/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="template/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
     @yield('styles')
 
 </head>
