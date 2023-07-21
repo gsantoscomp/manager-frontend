@@ -37,6 +37,7 @@ class AuthController extends Controller
         session()->put([
             'accessToken' => $response->object()->access_token,
             'user'=> $response->object()->user,
+            'permissions' => $response->object()->permissions,
         ]);
 
         return redirect()->route('admin.dashboard');

@@ -21,6 +21,4 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
 Route::get('/', function () {return view('admin.index');})->name('admin.dashboard');
 
-Route::prefix('userType')->group(function () {
-    Route::get('/', [UserTypeController::class, 'index'])->name('admin.userType.index');
-});
+Route::get('/userType', [UserTypeController::class, 'index'])->name('admin.userType.index')->middleware('permissions:userType.index');

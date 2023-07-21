@@ -42,6 +42,9 @@
 <script src="template/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="template/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="js/main.js"></script>
+<script>
+    const apiManagerURL = '{{ config("services.manager_api") }}/';
+</script>
 
 @yield('scripts')
 

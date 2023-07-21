@@ -95,7 +95,7 @@
         function getUserTypes() {
             const userTypeTableBody = $('#user-types-table tbody');
 
-            $.ajax({
+            AjaxRequest({
                 url: apiManagerURL + 'userType',
                 method: 'GET',
                 headers: {
@@ -142,20 +142,16 @@
                 },
                 error: function(error) {
                     if (error.status == 401) {
-                        $('.container-fluid').prepend(
-                            '<div class="alert alert-primary" role="alert">' +
-                                'É necessário fazer login novamente' +
-                            '</div>'
-                        );
+                        triggerErrorAlert('É necessário fazer login novamente');
                     }
                 }
-            });
+            }, 'userType.index');
         }
 
         function addUserType() {
             const form = $('#add-user-type-form');
 
-            $.ajax({
+            AjaxRequest({
                 url: apiManagerURL + 'userType',
                 method: 'POST',
                 headers: {
@@ -183,22 +179,15 @@
                         }, '');
                     }
                     
-                    $('.container-fluid').prepend(
-                        '<div class="alert alert-primary alert-dismissible fade show" role="alert">' +
-                            message +
-                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                                '<span aria-hidden="true">&times;</span>' +
-                            '</button>' +
-                        '</div>'
-                    );
+                    triggerErrorAlert(message);
                 }
-            });
+            }, 'userType.store');
 
             $('#add-user-type').modal('hide');
         }
 
         function deleteUserType(idUserType) {
-            $.ajax({
+            AjaxRequest({
                 url: apiManagerURL + 'userType/delete/' + idUserType,
                 method: 'DELETE',
                 headers: {
@@ -225,20 +214,13 @@
                         }, '');
                     }
                     
-                    $('.container-fluid').prepend(
-                        '<div class="alert alert-primary alert-dismissible fade show" role="alert">' +
-                            message +
-                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                                '<span aria-hidden="true">&times;</span>' +
-                            '</button>' +
-                        '</div>'
-                    );
+                    triggerErrorAlert(message);
                 }
-            });
+            }, 'userType.destroy');
         }
 
         function editUserType(idUserType) {
-            $.ajax({
+            AjaxRequest({
                 url: apiManagerURL + 'userType/' + idUserType,
                 method: 'GET',
                 headers: {
@@ -270,23 +252,16 @@
                         }, '');
                     }
                     
-                    $('.container-fluid').prepend(
-                        '<div class="alert alert-primary alert-dismissible fade show" role="alert">' +
-                            message +
-                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                                '<span aria-hidden="true">&times;</span>' +
-                            '</button>' +
-                        '</div>'
-                    );
+                    triggerErrorAlert(message);
                 }
-            });
+            }, 'userType.index');
         }
 
         function updateUserType(idUserType) {
             let formData = $('#add-user-type-form').serializeArray(); 
             formData.push({name: 'id', value: idUserType});
 
-            $.ajax({
+            AjaxRequest({
                 url: apiManagerURL + 'userType/update/' + idUserType,
                 method: 'PUT',
                 headers: {
@@ -314,16 +289,9 @@
                         }, '');
                     }
                     
-                    $('.container-fluid').prepend(
-                        '<div class="alert alert-primary alert-dismissible fade show" role="alert">' +
-                            message +
-                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                                '<span aria-hidden="true">&times;</span>' +
-                            '</button>' +
-                        '</div>'
-                    );
+                    triggerErrorAlert(message);
                 }
-            });
+            }, 'userType.store');
 
 
             $('#add-user-type').modal('hide');

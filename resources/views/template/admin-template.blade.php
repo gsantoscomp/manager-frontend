@@ -30,6 +30,43 @@
 
 @section('scripts')
     <script>
-        const accessToken = '{{ session('accessToken') }}';
+        const accessToken = '{{ session("accessToken") }}';
+        const userPermissions = @json(session("permissions"));
+
+        console.log(userPermissions);
+
+        function hasPermission(permission) {
+            return !!userPermissions.find(item => item == permission);
+        }
+
+        function triggerErrorAlert(message) {
+            $('.container-fluid').prepend(
+                '<div class="alert alert-danger" role="alert">' +
+                    message +
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                        '<span aria-hidden="true">&times;</span>' +
+                    '</button>' +
+                '</div>'
+            );
+        }
+
+        function triggerSuccessAlert(message) {
+            $('.container-fluid').prepend(
+                '<div class="alert alert-success" role="alert">' +
+                    message +
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                        '<span aria-hidden="true">&times;</span>' +
+                    '</button>' +
+                '</div>'
+            );
+        }
+
+        const AjaxRequest = (options, permission = false) => {
+            if (hasPermission(permission)) {
+                $.ajax(options);
+            } else {
+                triggerErrorAlert('Você não possui permissão para acessar este recurso.');
+            }
+        }
     </script>
 @endsection
