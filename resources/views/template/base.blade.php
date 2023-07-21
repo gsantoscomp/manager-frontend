@@ -17,7 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link href="template/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="template/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     @yield('styles')
 
 </head>
@@ -38,6 +38,8 @@
 
 <!-- Page level plugins -->
 <script src="template/vendor/chart.js/Chart.min.js"></script>
+<script src="template/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="template/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="js/main.js"></script>
 
 @yield('scripts')

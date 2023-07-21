@@ -1,7 +1,7 @@
 @extends('template.admin-template')
 
 @section('styles')
-    <link href="template/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    @parent
 @endsection
 
 @section('page-content')
@@ -33,9 +33,6 @@
 
 @section('scripts')
     @parent
-
-    <script src="template/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="template/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     
     <script>
         $(document).ready(function() {
@@ -64,7 +61,9 @@
 
                     userTypeTableBody.html(tableContent);
                     $('#user-types-table').DataTable({
-                        language: 'pt-br'
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/pt-BR.json',
+                        },
                     });
                 },
                 error: function(error) {

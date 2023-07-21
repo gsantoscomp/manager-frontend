@@ -34,7 +34,10 @@ class AuthController extends Controller
             return redirect()->route('admin.login');
         }
 
-        session()->put('accessToken', $response->object()->access_token);
+        session()->put([
+            'accessToken' => $response->object()->access_token,
+            'user'=> $response->object()->user,
+        ]);
 
         return redirect()->route('admin.dashboard');
     }
@@ -57,7 +60,7 @@ class AuthController extends Controller
             return redirect()->back();
         }
 
-        session()->remove('accessToken');
+        session()->flush();
 
         return redirect()->route('admin.login');
     }
