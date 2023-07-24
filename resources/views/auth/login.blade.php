@@ -27,11 +27,11 @@
                                     <div class="form-group">
                                         <input type="email" name="email" class="form-control form-control-user"
                                             id="exampleInputEmail" aria-describedby="emailHelp"
-                                            placeholder="Entre com seu email..."  value="admin@admin.com" required>
+                                            placeholder="Entre com seu email..."  value="admin@teste.com" required>
                                     </div>
                                     <div class="form-group">
                                         <input type="password" name="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Senha" value="123456" required>
+                                            id="exampleInputPassword" placeholder="Senha" value="teste1234" required>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
                                         Entrar

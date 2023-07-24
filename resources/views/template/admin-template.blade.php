@@ -3,6 +3,10 @@
 @section('body-id')page-top
 @endsection
 
+@section('styles')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
+
 @section('body')
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -29,6 +33,7 @@
 @endsection
 
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         const accessToken = '{{ session("accessToken") }}';
         const userPermissions = @json(session("permissions"));
@@ -63,6 +68,7 @@
 
         const AjaxRequest = (options, permission = false) => {
             if (hasPermission(permission)) {
+                console.log(hasPermission(permission));
                 $.ajax(options);
             } else {
                 triggerErrorAlert('Você não possui permissão para acessar este recurso.');
