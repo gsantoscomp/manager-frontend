@@ -7,6 +7,7 @@ use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\UserController;
@@ -31,6 +32,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
 Route::get('/', function () {return view('admin.index');})->name('admin.dashboard');
 
 Route::prefix('admin')->group(function () {
+    Route::get('/company', [CompanyController::class, 'index'])->name('admin.company.index')->middleware('permissions:companies.index');
     Route::get('/userType', [UserTypeController::class, 'index'])->name('admin.userType.index')->middleware('permissions:userType.index');
     Route::get('/animal', [AnimalController::class, 'index'])->name('admin.animal.index')->middleware('permissions:animals.index');
     Route::get('/appointment', [AppointmentController::class, 'index'])->name('admin.appointment.index')->middleware('permissions:appointment.index');

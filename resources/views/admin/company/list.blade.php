@@ -6,29 +6,27 @@
 
 @section('page-content')
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Usuários</h1>
+<h1 class="h3 mb-2 text-gray-800">Empresas</h1>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">Resultados</h6>
-        <button class="btn btn-primary btn-icon-split"  data-toggle="modal" data-target="#add-user">
+        <button class="btn btn-primary btn-icon-split"  data-toggle="modal" data-target="#add-company">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
-            <span class="text">Novo Usuário</span>
+            <span class="text">Nova Empresa</span>
         </button>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="users-table" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="companies-table" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Nome</th>
-                        <th>E-mail</th>
-                        <th>Tipo de usuário</th>
-                        <th>Empresa</th>
+                        <th>CNPJ</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -40,135 +38,64 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="add-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="add-company" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Novo Usuário</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Novo Cliente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="add-user-form">
+                <form id="add-company-form">
                     <div class="form-group">
                         <label for="name">Nome <small>*</small></label>
                         <input type="text" name="name" class="form-control form-control-user" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" name="email" class="form-control form-control-user">
-                    </div>
-                    <div class="form-group">
-                        <label for="user_type_id">Tipo de Usuário <small>*</small></label>
-                        <select name="user_type_id" class="form-control form-control-user" required>
-                            <option value="" disabled selected>Selecione um tipo de usuário</option>
-                            <!-- Aqui será preenchido com os tipos de usuário via JavaScript -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="company_id">Empresa <small>*</small></label>
-                        <select name="company_id" class="form-control form-control-user" required>
-                            <option value="" disabled selected>Selecione a empresa</option>
-                            <!-- Aqui será preenchido com as empresas via JavaScript -->
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Senha <small>*</small></label>
-                        <input type="password" name="password" class="form-control form-control-user" required>
+                        <label for="cnpj">CNPJ</label>
+                        <input type="text" name="cnpj" class="form-control form-control-user">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button id="submit-user-form" type="submit" class="btn btn-primary">Salvar</button>
+                <button id="submit-company-form" type="submit" class="btn btn-primary">Salvar</button>
             </div>
         </div>
     </div>
 </div>
 @endsection
-
 @section('scripts')
     @parent
     
     <script>
         $(document).ready(function() {
-        
-            getUsers();
-            getUserTypesForSelect();
-            getCompaniesForSelect();
+            getCompanies();
         });
 
-        $('#submit-user-form').on('click', function(event) {
+        $('#submit-company-form').on('click', function(event) {
             event.preventDefault();
 
             if ($(this).hasClass('edit-mode')) {
-                updateUser($(this).data('target'));
+                updateCompany($(this).data('target'));
             } else {
-                addUser();
+                addCompany();
             }
         });
 
-        $('#add-user').on('hidden.bs.modal', function (e) {
-            $('.modal-title').html('Novo Usuário');
-            $('#add-user-form')[0].reset();
-            $('#submit-user-form').removeClass('edit-mode').removeData('target');
+        $('#add-company').on('hidden.bs.modal', function (e) {
+            $('.modal-title').html('Novo Cliente');
+            $('#add-company-form')[0].reset();
+            $('#submit-company-form').removeClass('edit-mode').removeData('target');
         });
 
-        function getUserTypesForSelect() {
-            const userTypeSelect = $('select[name="user_type_id"]');
-
-            AjaxRequest({
-                url: apiManagerURL + 'userType',
-                method: 'GET',
-                headers: {
-                    "Accept": "application/json",
-                    "Authorization": "Bearer " + accessToken
-                },
-                success: function (result) {
-                    const options = result.reduce(function (finalString, item) {
-                        return finalString + '<option value="' + item.id + '">' + item.type + '</option>';
-                    }, '');
-
-                    userTypeSelect.append(options);
-                },
-                error: function (error) {
-                    console.log('Erro ao buscar tipos de usuário:', error);
-                }
-            }, 'userType.index');
-        }
-
-
-        function getCompaniesForSelect() {
-            const companySelect = $('select[name="company_id"]');
+        function getCompanies() {
+            const companyTableBody = $('#companies-table tbody');
 
             AjaxRequest({
                 url: apiManagerURL + 'companies',
-                method: 'GET',
-                headers: {
-                    "Accept": "application/json",
-                    "Authorization": "Bearer " + accessToken
-                },
-                success: function (result) {
-                    const options = result.reduce(function (finalString, item) {
-                        return finalString + '<option value="' + item.id + '">' + item.name + '</option>';
-                    }, '');
-
-                    companySelect.append(options);
-                },
-                error: function (error) {
-                    console.log('Erro ao buscar empresas:', error);
-                }
-            }, 'userType.index');
-        }
-
-
-        function getUsers() {
-            const userTableBody = $('#users-table tbody');
-
-            AjaxRequest({
-                url: apiManagerURL + 'user',
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
@@ -181,37 +108,35 @@
                             '<tr>' +
                                 '<td>' + (index + 1) + '</td>' +
                                 '<td>' + item.name + '</td>' +
-                                '<td>' + item.email + '</td>' +
-                                '<td>' + item.user_type?.type + '</td>' +
-                                '<td>' + (item.company?.name || '-') + '</td>' +
+                                '<td>' + (item.cnpj || '-') + '</td>' +
                                 '<td style="width:1%" class="text-nowrap">' +
-                                    '<a class="action-buttons edit-user" data-target="' + item.id + '">' + 
+                                    '<a class="action-buttons edit-company" data-target="' + item.id + '">' + 
                                         '<i style="margin-right: 1rem" class="fas fa-pen"></i>' + 
                                     '</a>'  +
-                                    '<a class="action-buttons delete-user" data-target="' + item.id + '">' + 
+                                    '<a class="action-buttons delete-company" data-target="' + item.id + '">' + 
                                         '<i class="fas fa-trash" aria-hidden="true"></i>' +
                                     '</a>'  +
                                 '</td>' +
                             '</tr>';
                     }, '');
 
-                    userTableBody.html(tableContent);
-                    $('#users-table').DataTable({
+                    companyTableBody.html(tableContent);
+                    $('#companies-table').DataTable({
                         language: {
                             url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/pt-BR.json',
                         },
                     });
 
-                    $('.edit-user').on('click', function(event) {
+                    $('.edit-company').on('click', function(event) {
                         event.preventDefault();
-                        const userId = $(this).data('target');
-                        editUser(userId);
+                        const companyId = $(this).data('target');
+                        editClient(companyId);
                     });
 
-                    $('.delete-user').on('click', function(event) {
+                    $('.delete-company').on('click', function(event) {
                         event.preventDefault();
-                        const userId = $(this).data('target');
-                        deleteUser(userId);
+                        const companyId = $(this).data('target');
+                        deleteClient(companyId);
                     });
 
                 },
@@ -220,14 +145,14 @@
                         triggerErrorAlert('É necessário fazer login novamente');
                     }
                 }
-            }, 'user.index');
+            }, 'companies.index');
         }
 
-        function addUser() {
-            const form = $('#add-user-form');
-            console.log(form.serialize())
+        function addCompany() {
+            const form = $('#add-company-form');
+
             AjaxRequest({
-                url: apiManagerURL + 'user/',
+                url: apiManagerURL + 'companies/',
                 method: 'POST',
                 headers: {
                     "Accept": "application/json",
@@ -235,8 +160,8 @@
                 },
                 data: form.serialize(),
                 success: function(result) {
-                    $('#users-table').DataTable().destroy();
-                    getUsers();     
+                    $('#companies-table').DataTable().destroy();
+                    getCompanies();     
                 },
                 error: function(error) {
                     let message = 'Não foi possível realizar sua solicitação no momento.';
@@ -256,22 +181,22 @@
                     
                     triggerErrorAlert(message);
                 }
-            }, 'user.store');
+            }, 'companies.store');
 
-            $('#add-user').modal('hide');
+            $('#add-company').modal('hide');
         }
 
-        function deleteUser(userId) {
+        function deleteClient(companyId) {
             AjaxRequest({
-                url: apiManagerURL + 'user/delete/' + userId,
+                url: apiManagerURL + 'companies/delete/' + companyId,
                 method: 'DELETE',
                 headers: {
                     "Accept": "application/json",
                     "Authorization": "Bearer " + accessToken 
                 },
                 success: function(result) {
-                    $('#users-table').DataTable().destroy();
-                    getUsers();     
+                    $('#companies-table').DataTable().destroy();
+                    getCompanies();     
                 },
                 error: function(error) {
                     let message = 'Não foi possível realizar sua solicitação no momento.';
@@ -291,12 +216,12 @@
                     
                     triggerErrorAlert(message);
                 }
-            }, 'user.destroy');
+            }, 'companies.destroy');
         }
 
-        function editUser(userId) {
+        function editClient(companyId) {
             AjaxRequest({
-                url: apiManagerURL + 'user/' + userId,
+                url: apiManagerURL + 'companies/' + companyId,
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
@@ -304,13 +229,12 @@
                 },
                 success: function(result) {
                     $('input[name="name"]').val(result.name);
-                    $('input[name="email"]').val(result.email);
-                    $('select[name="user_type_id"]').val(result.user_type_id);
+                    $('input[name="cnpj"]').val(result.cnpj);
 
-                    $('#submit-user-form').addClass('edit-mode').data('target', result.id);
+                    $('#submit-company-form').addClass('edit-mode').data('target', result.id);
 
-                    $('.modal-title').html('Editar Usuário');
-                    $('#add-user').modal('show');
+                    $('.modal-title').html('Editar Cliente');
+                    $('#add-company').modal('show');
                 },
                 error: function(error) {
                     let message = 'Não foi possível realizar sua solicitação no momento.';
@@ -330,15 +254,15 @@
                     
                     triggerErrorAlert(message);
                 }
-            }, 'user.index');
+            }, 'companies.index');
         }
 
-        function updateUser(userId) {
-            let formData = $('#add-user-form').serializeArray(); 
-            formData.push({name: 'id', value: userId});
+        function updateCompany(companyId) {
+            let formData = $('#add-company-form').serializeArray(); 
+            formData.push({name: 'id', value: companyId});
 
             AjaxRequest({
-                url: apiManagerURL + 'user/update/' + userId,
+                url: apiManagerURL + 'companies/update/' + companyId,
                 method: 'PUT',
                 headers: {
                     "Accept": "application/json",
@@ -346,8 +270,8 @@
                 },
                 data: $.param(formData),
                 success: function(result) {
-                    $('#users-table').DataTable().destroy();
-                    getUsers();    
+                    $('#companies-table').DataTable().destroy();
+                    getCompanies();    
                 },
                 error: function(error) {
                     let message = 'Não foi possível realizar sua solicitação no momento.';
@@ -367,9 +291,9 @@
                     
                     triggerErrorAlert(message);
                 }
-            }, 'user.update');
+            }, 'companies.update');
 
-            $('#add-user').modal('hide');
+            $('#add-company').modal('hide');
         }
     </script>
 @endsection

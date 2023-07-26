@@ -129,7 +129,7 @@
             const animalTableBody = $('#animals-table tbody');
 
             AjaxRequest({
-                url: apiManagerURL + 'animals',
+                url: apiManagerURL + 'company/animals',
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",

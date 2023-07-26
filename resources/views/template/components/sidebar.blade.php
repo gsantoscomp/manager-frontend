@@ -34,6 +34,22 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
 
+    @if(in_array('companies.index', session('permissions')))
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#company-routes"
+            aria-expanded="true" aria-controls="company-routes">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Empresas</span>
+        </a>
+
+        <div id="company-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('admin.company.index') }}">Lista de Empresas</a>
+            </div>
+        </div>
+    </li>
+    @endif
+
     @if(in_array('userType.index', session('permissions')))
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user-type-routes"
