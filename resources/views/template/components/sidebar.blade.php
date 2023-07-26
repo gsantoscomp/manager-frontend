@@ -23,8 +23,13 @@
     <hr class="sidebar-divider">
 
     <!-- Admin -->
+
     <div class="sidebar-heading">
+        @if(session('user')->id === 1)
         Admin
+        @elseif(session('user')->id === 2)
+        Veterinário
+        @endif
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
