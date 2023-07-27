@@ -50,6 +50,7 @@
             </div>
             <div class="modal-body">
                 <form id="add-animal-form">
+                    <input type="hidden" name="company_id" value="{{ session('user')->company_id }}">
                     <div class="form-group">
                         <label for="name">Nome <small>*</small></label>
                         <input type="text" name="name" class="form-control form-control-user" required>

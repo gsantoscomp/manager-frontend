@@ -53,6 +53,7 @@
             </div>
             <div class="modal-body">
                 <form id="add-client-form">
+                    <input type="hidden" name="company_id" value="{{ session('user')->company_id }}">
                     <div class="form-group">
                         <label for="name">Nome <small>*</small></label>
                         <input type="text" name="name" class="form-control form-control-user" required>
@@ -62,9 +63,7 @@
                         <select name="document_type" class="form-control form-control-user" required>
                             <option value="" disabled selected>Selecione um tipo de documento</option>
                             <option value="cpf">CPF</option>
-                            <option value="rg">RG</option>
-                            <option value="cnh">CNH</option>
-                            <!-- Adicionar outros tipos de documentos do enum da tabela aqui -->
+                            <option value="cnpj">CNPJ</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -121,7 +120,7 @@
             const clientTableBody = $('#clients-table tbody');
 
             AjaxRequest({
-                url: apiManagerURL + 'client',
+                url: apiManagerURL + 'company/clients',
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
@@ -129,7 +128,6 @@
                 },
                 success: function(result) {
                     const tableContent = result.reduce(function (finalString, item, index) {
-                        console.log(item)
                         return finalString + 
                             '<tr>' +
                                 '<td>' + (index + 1) + '</td>' +

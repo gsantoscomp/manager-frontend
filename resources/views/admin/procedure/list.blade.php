@@ -50,6 +50,7 @@
             </div>
             <div class="modal-body">
                 <form id="add-procedure-form">
+                    <input type="hidden" name="company_id" value="{{ session('user')->company_id }}">
                     <div class="form-group">
                         <label for="name">Nome <small>*</small></label>
                         <input type="text" name="name" class="form-control form-control-user" required>
@@ -101,7 +102,7 @@
             const procedureTableBody = $('#procedures-table tbody');
 
             AjaxRequest({
-                url: apiManagerURL + 'procedure',
+                url: apiManagerURL + 'company/procedures',
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
@@ -114,7 +115,7 @@
                                 '<td>' + (index + 1) + '</td>' +
                                 '<td>' + item.name + '</td>' +
                                 '<td>' + item.price + '</td>' +
-                                '<td>' + item.description + '</td>' +
+                                '<td>' + (item.description || '-')  + '</td>' +
                                 '<td style="width:1%" class="text-nowrap">' +
                                     '<a class="action-buttons edit-procedure" data-target="' + item.id + '">' + 
                                         '<i style="margin-right: 1rem" class="fas fa-pen"></i>' + 
@@ -170,6 +171,7 @@
                     getProcedures();     
                 },
                 error: function(error) {
+                    console.log(error);
                     let message = 'Não foi possível realizar sua solicitação no momento.';
                     
                     if (error.status == 401) {

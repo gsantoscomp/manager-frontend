@@ -52,6 +52,7 @@
             </div>
             <div class="modal-body">
                 <form id="add-appointment-form">
+                    <input type="hidden" name="company_id" value="{{ session('user')->company_id }}">
                     <div class="form-group">
                         <label for="client_id">Cliente <small>*</small></label>
                         <select name="client_id" class="form-control form-control-user get-animal" required>
@@ -124,7 +125,7 @@
             const clientSelect = $('select[name="client_id"]');
 
             AjaxRequest({
-                url: apiManagerURL + 'client',
+                url: apiManagerURL + 'company/clients',
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
@@ -154,7 +155,6 @@
                     "Authorization": "Bearer " + accessToken
                 },
                 success: function (result) {
-                    console.log(result)
                     const options = result.data.reduce(function (finalString, item) {
                         return finalString + '<option value="' + item.id + '">' + item.name + '</option>';
                     }, '');
@@ -171,7 +171,7 @@
             const appointmentTableBody = $('#appointments-table tbody');
 
             AjaxRequest({
-                url: apiManagerURL + 'appointment',
+                url: apiManagerURL + 'company/appointments',
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
@@ -179,7 +179,6 @@
                 },
                 success: function(result) {
                     const tableContent = result.reduce(function (finalString, item, index) {
-                        console.log(item)
                         return finalString + 
                             '<tr>' +
                                 '<td>' + (index + 1) + '</td>' +

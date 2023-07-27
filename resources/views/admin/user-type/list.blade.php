@@ -108,7 +108,7 @@
                             '<tr>' +
                                 '<td>' + (index + 1) + '</td>' +
                                 '<td>' + item.type + '</td>' +
-                                '<td>' + item.description + '</td>' +
+                                '<td>' + (item.description || '-') + '</td>' +
                                 '<td style="width:1%" class="text-nowrap">' +
                                     '<a class="action-buttons edit-user-type" data-target="' + item.id + '">' + 
                                         '<i style="margin-right: 1rem" class="fas fa-pen"></i>' + 

@@ -52,6 +52,7 @@
             </div>
             <div class="modal-body">
                 <form id="add-medicine-form">
+                    <input type="hidden" name="company_id" value="{{ session('user')->company_id }}">
                     <div class="form-group">
                         <label for="name">Nome <small>*</small></label>
                         <input type="text" name="name" class="form-control form-control-user" required>
@@ -111,7 +112,7 @@
             const medicineTableBody = $('#medicines-table tbody');
 
             AjaxRequest({
-                url: apiManagerURL + 'medicine',
+                url: apiManagerURL + 'company/medicines',
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
@@ -126,7 +127,7 @@
                                 '<td>' + item.quantity + '</td>' +
                                 '<td>' + item.purchase_price + '</td>' +
                                 '<td>' + item.sale_price + '</td>' +
-                                '<td>' + item.description + '</td>' +
+                                '<td>' + (item.description || '-') + '</td>' +
                                 '<td style="width:1%" class="text-nowrap">' +
                                     '<a class="action-buttons edit-medicine" data-target="' + item.id + '">' + 
                                         '<i style="margin-right: 1rem" class="fas fa-pen"></i>' + 
@@ -170,7 +171,7 @@
             const form = $('#add-medicine-form');
 
             AjaxRequest({
-                url: apiManagerURL + 'medicine/',
+                url: apiManagerURL + 'medicine',
                 method: 'POST',
                 headers: {
                     "Accept": "application/json",

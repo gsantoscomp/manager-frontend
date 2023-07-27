@@ -38,8 +38,6 @@
         const accessToken = '{{ session("accessToken") }}';
         const userPermissions = @json(session("permissions"));
 
-        console.log(userPermissions);
-
         function hasPermission(permission) {
             return !!userPermissions.find(item => item == permission);
         }
