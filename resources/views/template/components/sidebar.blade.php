@@ -29,153 +29,162 @@
         Admin
         @elseif(session('user')->id === 2)
         Veterinário
+        @else
+        Master
         @endif
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
 
-    @if(in_array('companies.index', session('permissions')))
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#company-routes"
-            aria-expanded="true" aria-controls="company-routes">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Empresas</span>
-        </a>
+    @if(session('user')->id === 3)
+        @if(in_array('companies.index', session('permissions')))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#company-routes"
+                aria-expanded="true" aria-controls="company-routes">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Empresas</span>
+            </a>
 
-        <div id="company-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.company.index') }}">Lista de Empresas</a>
+            <div id="company-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.company.index') }}">Lista de Empresas</a>
+                </div>
             </div>
-        </div>
-    </li>
-    @endif
+        </li>
+        @endif
 
-    @if(in_array('userType.index', session('permissions')))
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user-type-routes"
-            aria-expanded="true" aria-controls="user-type-routes">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Tipos de Usuário</span>
-        </a>
+        @if(in_array('userType.index', session('permissions')))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user-type-routes"
+                aria-expanded="true" aria-controls="user-type-routes">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Tipos de Usuário</span>
+            </a>
 
-        <div id="user-type-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.userType.index') }}">Lista de Tipos de Usuário</a>
+            <div id="user-type-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.userType.index') }}">Lista de Tipos de Usuário</a>
+                </div>
             </div>
-        </div>
-    </li>
-    @endif
+        </li>
+        @endif
 
-    @if(in_array('animals.index', session('permissions')))
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#animal-type-routes"
-            aria-expanded="true" aria-controls="animal-type-routes">
-            <i class="fas fa-fw fa fa-paw"></i>
-            <span>Animais</span>
-        </a>
-
-        <div id="animal-type-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.animal.index') }}">Lista todos os Animais</a>
+        @if(in_array('user.index', session('permissions')))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user-routes"
+                aria-expanded="true" aria-controls="user-routes">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Usuários</span>
+            </a>
+    
+            <div id="user-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.user.index') }}">Lista todos os Usuários</a>
+                </div>
             </div>
-        </div>
-    </li>
-    @endif
+        </li>
+        @endif
 
-    @if(in_array('user.index', session('permissions')))
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user-routes"
-            aria-expanded="true" aria-controls="user-routes">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Usuários</span>
-        </a>
-
-        <div id="user-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.user.index') }}">Lista todos os Usuários</a>
+        @if(in_array('permission.index', session('permissions')))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#permission-routes"
+                aria-expanded="true" aria-controls="permission-routes">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Permissões</span>
+            </a>
+    
+            <div id="permission-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.permission.index') }}">Lista as Permissões</a>
+                </div>
             </div>
-        </div>
-    </li>
-    @endif
+        </li>
+        @endif
 
-    @if(in_array('appointment.index', session('permissions')))
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#appointment-routes"
-            aria-expanded="true" aria-controls="appointment-routes">
-            <i class="fa fa-address-book"></i>
-            <span>Consultas</span>
-        </a>
+    @elseif(session('user')->user_type_id === 1)
+        
+        @if(in_array('medicine.index', session('permissions')))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#medicine-routes"
+                aria-expanded="true" aria-controls="medicine-routes">
+                <i class="fas fa-fw fa-medkit"></i>
+                <span>Medicamentos</span>
+            </a>
 
-        <div id="appointment-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.appointment.index') }}">Lista as Consultas</a>
+            <div id="medicine-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.medicine.index') }}">Lista os Medicamentos</a>
+                </div>
             </div>
-        </div>
-    </li>
-    @endif
+        </li>
+        @endif
 
-    @if(in_array('client.index', session('permissions')))
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#client-routes"
-            aria-expanded="true" aria-controls="client-routes">
-            <i class="fas fa-fw fa-address-card"></i>
-            <span>Clientes</span>
-        </a>
+        @if(in_array('procedure.index', session('permissions')))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#procedure-routes"
+                aria-expanded="true" aria-controls="procedure-routes">
+                <i class="fas fa-fw fa fa-stethoscope"></i>
+                <span>Procedimentos</span>
+            </a>
 
-        <div id="client-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.client.index') }}">Lista os Clientes</a>
+            <div id="procedure-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.procedure.index') }}">Lista os Procedimentos</a>
+                </div>
             </div>
-        </div>
-    </li>
-    @endif
+        </li>
+        @endif
+        
+        @if(in_array('client.index', session('permissions')))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#client-routes"
+                aria-expanded="true" aria-controls="client-routes">
+                <i class="fas fa-fw fa-address-card"></i>
+                <span>Clientes</span>
+            </a>
 
-    @if(in_array('medicine.index', session('permissions')))
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#medicine-routes"
-            aria-expanded="true" aria-controls="medicine-routes">
-            <i class="fas fa-fw fa-medkit"></i>
-            <span>Medicamentos</span>
-        </a>
-
-        <div id="medicine-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.medicine.index') }}">Lista os Medicamentos</a>
+            <div id="client-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.client.index') }}">Lista os Clientes</a>
+                </div>
             </div>
-        </div>
-    </li>
-    @endif
+        </li>
+        @endif
+        
+        @if(in_array('animals.index', session('permissions')))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#animal-type-routes"
+                aria-expanded="true" aria-controls="animal-type-routes">
+                <i class="fas fa-fw fa fa-paw"></i>
+                <span>Animais</span>
+            </a>
 
-    @if(in_array('permission.index', session('permissions')))
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#permission-routes"
-            aria-expanded="true" aria-controls="permission-routes">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Permissões</span>
-        </a>
-
-        <div id="permission-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.permission.index') }}">Lista as Permissões</a>
+            <div id="animal-type-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.animal.index') }}">Lista todos os Animais</a>
+                </div>
             </div>
-        </div>
-    </li>
-    @endif
+        </li>
+        @endif
 
-    @if(in_array('procedure.index', session('permissions')))
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#procedure-routes"
-            aria-expanded="true" aria-controls="procedure-routes">
-            <i class="fas fa-fw fa fa-stethoscope"></i>
-            <span>Procedimentos</span>
-        </a>
 
-        <div id="procedure-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.procedure.index') }}">Lista os Procedimentos</a>
+
+        @if(in_array('appointment.index', session('permissions')))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#appointment-routes"
+                aria-expanded="true" aria-controls="appointment-routes">
+                <i class="fa fa-address-book"></i>
+                <span>Consultas</span>
+            </a>
+
+            <div id="appointment-routes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.appointment.index') }}">Lista as Consultas</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
+        @endif
+
     @endif
 
     <!-- Divider -->
